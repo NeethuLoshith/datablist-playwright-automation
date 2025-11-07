@@ -21,7 +21,7 @@ import com.utils.ExcelReader;
 import com.utils.PrintUtils;
 import com.utils.WebTableExtractor;
 
-public class DatablistUploadTest {
+public class DatablistUploadtest {
 
 	public static void main(String[] args) throws Exception {
 		// ✅ Read from config file

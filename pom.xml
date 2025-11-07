@@ -1,73 +1,92 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.yourorg</groupId>
 	<artifactId>datablist-playwright-automation</artifactId>
 	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>Datablist Playwright Automation</name>
+	<description>Automation project for validating Excel uploads to Datablist</description>
+
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>5.10.0</junit.version>
+		<playwright.version>1.38.0</playwright.version>
+		<poi.version>5.2.3</poi.version>
+		<commons-csv.version>1.11.0</commons-csv.version>
 	</properties>
+
 	<dependencies>
-		<!-- Playwright Java -->
+		<!-- Playwright for Java -->
 		<dependency>
 			<groupId>com.microsoft.playwright</groupId>
 			<artifactId>playwright</artifactId>
-			<version>1.56.0</version>
-		</dependency>
-
-		<!-- TestNG -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>7.8.0</version>
-			<scope>test</scope>
+			<version>${playwright.version}</version>
 		</dependency>
 
 		<!-- Apache POI for Excel -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>5.2.5</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>5.2.5</version>
+			<version>${poi.version}</version>
 		</dependency>
-		<!-- Test framework (JUnit 5) -->
+
+		<!-- Apache Commons CSV (if reading CSV exports) -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>${commons-csv.version}</version>
+		</dependency>
+
+		<!-- JUnit 5 -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.10.2</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- ✅ Logging support (required for Apache POI internal logging) -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.22.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.22.1</version>
-		</dependency>
-
 	</dependencies>
-
 
 	<build>
 		<plugins>
-			<!-- Exec plugin to run Playwright CLI if needed -->
+			<!-- Maven Compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+
+			<!-- Maven Exec Plugin to run Java classes -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.1.0</version>
 				<configuration>
 					<mainClass>com.tests.DatablistUploadTest</mainClass>
+				</configuration>
+			</plugin>
+
+			<!-- Surefire for running tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<useModulePath>false</useModulePath>
 				</configuration>
 			</plugin>
 		</plugins>
