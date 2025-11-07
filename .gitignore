@@ -1,0 +1,8 @@
+/target/
+/.idea/
+/.vscode/
+/downloads/
+*.log
+*.class
+*.iml
+*.xlsx
