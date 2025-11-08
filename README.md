@@ -1,20 +1,20 @@
 # 📦 Datablist Playwright Automation
 
-Automates validation of data integrity when uploading an Excel file to [Datablist](https://app.datablist.com/).  
-Built using **Java + Playwright + Apache POI + Maven**.
-
+Automates validation of data integrity when uploading an Excel file to [Datablist](https://app.datablist.com/).
+Built using Java + Playwright + Apache POI + Maven.
+      
 ---
 
 ## ✅ Features
 
-- Upload Excel/CSV to Datablist.
-- Verify displayed data against source Excel.
+- Upload Excel/CSV file to Datablist.
+- Verify displayed data against the source Excel file.
 - Apply filters:
   - Status = "Active"
   - Amount ≥ 1000
-  - CreatedDate = 2023
+  - CreatedDate Starts with 2023
 - Export filtered data and compare with locally filtered dataset.
-- Generate validation summary in console.
+- Generate validation summary in the console..
 
 ---
 
@@ -30,59 +30,71 @@ Built using **Java + Playwright + Apache POI + Maven**.
 ## 📁 Project Structure
 datablist-playwright-automation
 │
-├─ src/main/java/com/tests # Test scripts (DatablistUploadTest.java)
-├─ src/main/java/com/pages # Page Object classes (HomePage, CollectionPage, ExportPage)
-├─ src/main/java/com/utils # Utilities (ExcelReader, ExcelComparator, WebTableExtractor, ConfigReader, etc.)
-├─ src/main/java/com/base # BrowserFactory
-├─ resources # Source Excel file and config.properties
-└─ pom.xml # Maven project file
+├─ src/main/java/com/tests        # Test scripts (DatablistUploadTest.java)
+├─ src/main/java/com/pages        # Page Object classes (HomePage, CollectionPage, ExportPage)
+├─ src/main/java/com/utils        # Utilities (ExcelReader, ExcelComparator, WebTableExtractor, ConfigReader, etc.)
+├─ src/main/java/com/base         # BrowserFactory
+├─ resources                      # Source Excel file and config.properties
+└─ pom.xml                        # Maven project file
 
 
 ---
 
-## ⚡ Setup
+## ⚡ Setup & Run
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YourUsername/datablist-playwright-automation.git
+**Clone the repository**
+git clone https://github.com/NeethuLoshith/datablist-playwright-automation.git
 cd datablist-playwright-automation
+
+**Build the project**
 mvn clean install
-Run the Automation
-Using IDE:
 
-Right-click DatablistUploadTest.java → Run As → Java Application.
+**Install Playwright browsers**
+mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install"
 
-Using Maven:
+**Update configuration**
+Edit resources/config.properties
+- Set Excel file path to your local source file.
+- Set downloads folder path (where exported file will be saved).
+
+▶️ **Run the Automation**
+🧩 Option 1 — Using IDE
+
+- Open the project in Eclipse.
+- Navigate to com.tests.DatablistUploadTest.java.
+- Right-click → Run As → Java Application.
+
+🧩 Option 2 — Using Maven
 mvn compile exec:java -Dexec.mainClass="com.tests.DatablistUploadTest"
 
-Using Terminal (without Maven):
+🧩 Option 3 — Using Terminal (manual compile)
 cd src/main/java
 javac -cp ".;path\to\poi.jar;path\to\playwright.jar" com\tests\DatablistUploadTest.java
 java -cp ".;path\to\poi.jar;path\to\playwright.jar;target\classes" com.tests.DatablistUploadTest
 
-📊 Output
 
-Captured rows from Datablist.
+📊 **Output**
 
-Comparison of Excel vs web data.
+- Captured rows from Datablist web table.
 
-Exported filtered data file in /downloads.
+- Comparison summary: Excel vs Web Data.
 
-Validation summary printed in console.
+- Exported filtered data saved in /downloads.
 
-📝 Notes
+- Validation summary printed in the console.
 
-Ensure Playwright browsers are installed:
+📝 **Notes**
 
-mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install"
+- Ensure Playwright browsers are installed before running.
 
+- Confirm Excel file paths in config.properties are valid.
 
-Excel file paths in config.properties must match your local setup.
+- Make sure the downloads folder exists or is created by the script.
 
-Make sure downloads folder exists or is created by the script.
-
-📂 Author
+👩‍💻 **Author**
 
 Neethu Gopi
-Email: neethugopiiykkunnel@gmail.com
+📧 neethugopiiykkunnel@gmail.com
